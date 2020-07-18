@@ -1,0 +1,77 @@
+<!-- base.html의 템플릿을 상속한다 -->
+{% extends 'base.html' %}   
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<style>
+    body{
+        text-align: center;
+        padding-top: 2rem;
+        padding-right: 40%;
+        padding-left: 40%;
+    }
+
+    button{
+        border: 1px solid rgb(231, 204, 154);
+        background-color:rgba(0,0,0,0); 
+        color: whitesmoke; 
+        padding: 5px;
+    }
+
+    button:hover{ 
+        color:whitesmoke; background-color: rgb(231, 204, 154);
+    }
+
+    a:link { color:rgb(231, 204, 154); text-decoration: none; }
+    a:visited { color:rgb(231, 204, 154); text-decoration: none; }
+    a:hover { color:whitesmoke; text-decoration: underline; text-decoration: none;}
+    a:active { color:whitesmoke; background-color:rgb(231, 204, 154);}
+
+</style>
+
+<div>
+    <header>BOOKMARK</header>
+    <br>
+    <div>
+        <button><a href="{% url 'main:new' %}">CREATE</a></button>
+        <!-- main 앱의 new.html로 가는 버튼 -->
+    </div>
+</div>
+
+<div>
+    <!-- 만약 bookmarks가 있으면 -->
+    {% if bookmarks %}
+
+    <!-- bookmarks에 있는 걸 가져온다 -->
+    <!-- 북마크 이름, url 가져오고, 수정버튼, 삭제버튼 있고, POST방식 썼으니까 csrf 토큰 써주고, 제출버튼 -->
+    <hr>
+    {% for bookmark in bookmarks %}
+    <div>
+        <p><h4>{{bookmark.site_name}}</h4></p>
+        <p>{{bookmark.site_url}}</p>
+        
+        <div>
+            <button><a href="{% url 'main:edit' bookmark.id %}">EDIT</a></button>
+            <form action="{% url 'main:delete' bookmark.id %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="delete">
+            </form>
+        </div>
+    </div>
+    <hr>
+    {% endfor %}
+
+    <!-- 북마크가 없으면 -->
+    {% else %}
+
+    <div>
+        <p>북마크가 비어 있어요 CREATE 해주세요</p>
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

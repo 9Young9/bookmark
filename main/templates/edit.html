@@ -1,0 +1,53 @@
+<!-- base.html의 템플릿을 상속한다 -->
+{% extends 'base.html' %}   
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+
+<style>
+    body{
+        text-align: center;
+        padding-top: 2rem;
+        padding-right: 40%;
+        padding-left: 40%;
+    }
+
+    button{
+        border: 1px solid rgb(231, 204, 154);
+        background-color:rgba(0,0,0,0); 
+        color: whitesmoke; 
+        padding: 5px;
+    }
+
+    button:hover{ 
+        color:whitesmoke; background-color: rgb(231, 204, 154);
+    }
+
+    a:link { color:rgb(231, 204, 154); text-decoration: none; }
+    a:visited { color:rgb(231, 204, 154); text-decoration: none; }
+    a:hover { color:whitesmoke; text-decoration: underline; text-decoration: none;}
+    a:active { color:whitesmoke; background-color:rgb(231, 204, 154);}
+
+</style>
+
+<div>
+    <header>BOOKMARK</header>
+    <br>
+    <div>
+        <button><a href="{% url 'main:show' %}">HOME</a></button>
+        <!-- main 앱의 show.html로 가는 버튼 -->
+    </div>
+</div>
+
+<div>
+    <form method = 'POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- form을 받았던 걸 써야 되니까, form을 p태그로 쓰겠다 -->
+        {{ form.as_p }}
+        <input type="submit" value="수정">
+    </form>
+</div>
+
+{% endblock %}
