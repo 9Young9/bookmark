@@ -1,13 +1,21 @@
 from django.shortcuts import render, redirect, get_object_or_404    # redirect, get_object_or_404도 필요해서 써준다.
 from .models import Bookmark    # models.py의 Bookmark도 가져오고
 from .forms import BookmarkForm # forms.py의 BookmarkForm도 가져온다
+# Paginator 장고에서 가져오기
+from django.core.paginator import Paginator
 # Create your views here.
 
 def show(request):  # 요청(request)이 들어오면,
     bookmarks = Bookmark.objects.all()   # bookmarks는 Bookmark가 가진 애를 다 가져와라.
 
-    return render(request, 'show.html', {'bookmarks':bookmarks})
+    # 페이지네이션 추가
+    bookmark = Bookmark.objects
+    paginator = Paginator(bookmarks,3) # Paginator(분할될 객체, 한 페이지에 담길 객체 수)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
 
+    return render(request, 'show.html', {'bookmarks':bookmarks, 'posts':posts})
+ 
 
 def new(request):
     if request.method == 'POST': # request가 POST 방식으로 들어오면, (요청이 발생하면)

@@ -7,4 +7,4 @@ class BookmarkForm(forms.ModelForm):
 
     class Meta:
         model = Bookmark
-        fields = '__all__'  # __all__ : bookmark에 있는 fields 다 가져오라는 뜻
+        fields = '__all__'  # __all__ : bookmark에 있는 fields 다 가져오라는 뜻 

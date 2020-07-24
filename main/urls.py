@@ -8,4 +8,4 @@ urlpatterns = [
     path('new/', new, name = "new"),
     path('edit/<int:pk>', edit, name = "edit"),  # <int:pk> : 순서
     path('delete/<int:pk>', delete, name = "delete"),
-]
+] 

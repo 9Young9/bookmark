@@ -40,14 +40,14 @@
     </div>
 </div>
 
-<div>
+<div> 
     <!-- 만약 bookmarks가 있으면 -->
-    {% if bookmarks %}
+    {% if posts %}
 
     <!-- bookmarks에 있는 걸 가져온다 -->
     <!-- 북마크 이름, url 가져오고, 수정버튼, 삭제버튼 있고, POST방식 썼으니까 csrf 토큰 써주고, 제출버튼 -->
     <hr>
-    {% for bookmark in bookmarks %}
+    {% for bookmark in posts %}
     <div>
         <p><h4>{{bookmark.site_name}}</h4></p>
         <p>{{bookmark.site_url}}</p>
@@ -63,9 +63,22 @@
     <hr>
     {% endfor %}
 
-    <!-- 북마크가 없으면 -->
-    {% else %}
+<!-- 페이지네이션 -->
 
+
+    {% if posts.has_previous %}
+    <a href="?page={{posts.previous_page_number}}">《</a>
+    {% endif %}
+    <span>{{posts.number}}</span>
+    <span>/</span>
+    <span>{{ posts.paginator.num_pages }}</span>
+    {% if posts.has_next%}
+    <a href="?page={{posts.next_page_number}}">》</a>
+    {% endif %}
+
+ 
+<!-- 북마크가 없으면 -->
+    {% else %}
     <div>
         <p>북마크가 비어 있어요 CREATE 해주세요</p>
     </div>
